@@ -177,18 +177,19 @@
   #define MAX6675_SS       49
 #endif
 
+//  ----- remap mosfet pins to an unused pin to be able to switch these pins by M42 command
 //
 // Heaters / Fans
 //
-#define HEATER_0_PIN       13
-#define HEATER_1_PIN       12
-#define HEATER_2_PIN       11
-#define HEATER_BED_PIN      7   // BED
+#define HEATER_0_PIN       5//13
+#define HEATER_1_PIN       5//12
+#define HEATER_2_PIN       5//11
+#define HEATER_BED_PIN      5//7   // BED
 
 #ifndef FAN_PIN
-  #define FAN_PIN           9
+  //#define FAN_PIN           9
 #endif
-#define FAN1_PIN            8
+#define FAN1_PIN            5//8
 
 //
 // Misc. Functions
