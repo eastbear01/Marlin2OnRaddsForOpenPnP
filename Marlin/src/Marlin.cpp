@@ -42,6 +42,8 @@
 #include "module/printcounter.h" // PrintCounter or Stopwatch
 #include "feature/closedloop.h"
 
+#include "HAL/shared/Delay.h"
+
 #ifdef ARDUINO
   #include <pins_arduino.h>
 #endif
@@ -610,7 +612,6 @@ void idle(
  * After this the machine will need to be reset.
  */
 void kill(PGM_P const lcd_msg/*=NULL*/) {
-
   thermalManager.disable_all_heaters();
 
   SERIAL_ERROR_START();
@@ -633,11 +634,14 @@ void kill(PGM_P const lcd_msg/*=NULL*/) {
 
 void minkill() {
 
-  _delay_ms(600);  // Wait a short time (allows messages to get out before shutting down.
-  cli();           // Stop interrupts
-  _delay_ms(250);  // Wait to ensure all interrupts stopped
+  // Wait a short time (allows messages to get out before shutting down.
+  DELAY_US(600000);
 
-  disable_all_steppers();
+  cli(); // Stop interrupts
+
+  // Wait to ensure all interrupts stopped
+  DELAY_US(250000);
+
   thermalManager.disable_all_heaters(); // turn off heaters again
 
   #if HAS_POWER_SWITCH
@@ -972,11 +976,8 @@ void loop() {
 
     #if ENABLED(SDSUPPORT)
       card.checkautostart();
-    #endif
 
-    #if ENABLED(SDSUPPORT) && (ENABLED(ULTIPANEL) || ENABLED(EXTENSIBLE_UI))
-      if (abort_sd_printing) {
-        abort_sd_printing = false;
+      if (card.abort_sd_printing) {
         card.stopSDPrint(
           #if SD_RESORT
             true
@@ -992,7 +993,7 @@ void loop() {
           card.removeJobRecoveryFile();
         #endif
       }
-    #endif // SDSUPPORT && (ENABLED(ULTIPANEL) || ENABLED(EXTENSIBLE_UI))
+    #endif // SDSUPPORT
 
     if (commands_in_queue < BUFSIZE) get_available_commands();
     advance_command_queue();

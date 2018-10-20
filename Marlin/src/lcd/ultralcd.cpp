@@ -895,11 +895,9 @@ void lcd_quick_feedback(const bool clear_buttons) {
       lcd_reset_status();
     }
 
-    bool abort_sd_printing; // =false
-
     void lcd_sdcard_stop() {
       wait_for_heatup = wait_for_user = false;
-      abort_sd_printing = true;
+      card.abort_sd_printing = true;
       lcd_setstatusPGM(PSTR(MSG_PRINT_ABORTED), -1);
       lcd_return_to_status();
     }
@@ -4034,7 +4032,7 @@ void lcd_quick_feedback(const bool clear_buttons) {
       // M205 - Max Jerk
       MENU_ITEM(submenu, MSG_JERK, lcd_advanced_jerk_menu);
 
-      if (!printer_busy) {
+      if (!printer_busy()) {
         // M92 - Steps Per mm
         MENU_ITEM(submenu, MSG_STEPS_PER_MM, lcd_advanced_steps_per_mm_menu);
       }

@@ -149,7 +149,7 @@ public:
   FORCE_INLINE char* longest_filename() { return longFilename[0] ? longFilename : filename; }
 
 public:
-  bool saving, logging, sdprinting, cardOK, filenameIsDir;
+  bool saving, logging, sdprinting, cardOK, filenameIsDir, abort_sd_printing;
   char filename[FILENAME_LENGTH], longFilename[LONG_FILENAME_LENGTH];
   int8_t autostart_index;
 private:
@@ -247,9 +247,9 @@ private:
   #define IS_SD_INSERTED() Sd2Card::isInserted()
 #elif PIN_EXISTS(SD_DETECT)
   #if ENABLED(SD_DETECT_INVERTED)
-    #define IS_SD_INSERTED() (READ(SD_DETECT_PIN) == HIGH)
+    #define IS_SD_INSERTED()  READ(SD_DETECT_PIN)
   #else
-    #define IS_SD_INSERTED() (READ(SD_DETECT_PIN) == LOW)
+    #define IS_SD_INSERTED() !READ(SD_DETECT_PIN)
   #endif
 #else
   // No card detect line? Assume the card is inserted.
