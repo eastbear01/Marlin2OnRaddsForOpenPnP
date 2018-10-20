@@ -658,7 +658,7 @@
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 800, 800, 800, 800 }
+#define DEFAULT_MAX_FEEDRATE          { 1000, 1000, 100, 1000 }
 
 /**
  * Default Max Acceleration (change/s) change = mm/s
@@ -666,7 +666,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 5000, 5000, 5000, 5000 }
+#define DEFAULT_MAX_ACCELERATION      { 5000, 5000, 350, 5000 }
 
 /**
  * Default Acceleration (change/s) change = mm/s
@@ -688,10 +688,10 @@
  * When changing speed and direction, if the difference is less than the
  * value set here, it may happen instantaneously.
  */
-#define DEFAULT_XJERK                 1.0
-#define DEFAULT_YJERK                 1.0
-#define DEFAULT_ZJERK                 1.0
-#define DEFAULT_EJERK                 1.0
+#define DEFAULT_XJERK                 0.0
+#define DEFAULT_YJERK                 0.0
+#define DEFAULT_ZJERK                 0.0
+#define DEFAULT_EJERK                 0.0
 
 /**
  * S-Curve Acceleration
@@ -840,7 +840,7 @@
  * Example: `M851 Z-5` with a CLEARANCE of 4  =>  9mm from bed to nozzle.
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
-#define Z_CLEARANCE_DEPLOY_PROBE   10 // Z Clearance for Deploy/Stow
+#define Z_CLEARANCE_DEPLOY_PROBE   0 // Z Clearance for Deploy/Stow
 #define Z_CLEARANCE_BETWEEN_PROBES  5 // Z Clearance between probe points
 #define Z_CLEARANCE_MULTI_PROBE     5 // Z Clearance between multiple probes
 //#define Z_AFTER_PROBING           5 // Z position after probing is done
@@ -914,7 +914,7 @@
 
 //#define NO_MOTION_BEFORE_HOMING  // Inhibit movement until all axes have been homed
 
-//#define UNKNOWN_Z_NO_RAISE // Don't raise Z (lower the bed) if Z is "unknown." For beds that fall when Z is powered off.
+#define UNKNOWN_Z_NO_RAISE // Don't raise Z (lower the bed) if Z is "unknown." For beds that fall when Z is powered off.
 
 //#define Z_HOMING_HEIGHT 4  // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
                              // Be sure you have this distance over your Z_MAX_POS in case.
