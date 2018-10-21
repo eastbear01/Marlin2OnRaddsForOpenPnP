@@ -181,15 +181,15 @@
 //
 // Heaters / Fans
 //
-#define HEATER_0_PIN       5//13
-#define HEATER_1_PIN       5//12
-#define HEATER_2_PIN       5//11
-#define HEATER_BED_PIN      5//7   // BED
+#define HEATER_0_PIN       77//13
+#define HEATER_1_PIN       77//12
+#define HEATER_2_PIN       77//11
+#define HEATER_BED_PIN     77//7   // BED
 
 #ifndef FAN_PIN
   //#define FAN_PIN           9
 #endif
-#define FAN1_PIN            5//8
+#define FAN1_PIN            77//8
 
 //
 // Misc. Functions
